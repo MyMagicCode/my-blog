@@ -1,0 +1,13 @@
+/* 定义全局需要使用的变量或者class */
+body{
+  --Color: red;
+  --menu-bg-rbga:rgba(255,255,255,0.6);
+  --menu-font-color: rgba(0,0,0,1);
+  --app-color: 0;
+}
+
+*{
+  margin: 0px;
+  padding: 0px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
