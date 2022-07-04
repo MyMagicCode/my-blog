@@ -86,7 +86,7 @@ export default defineComponent({
 }
 .Blog {
   position: relative;
-  height: 100%;
+  height: 80vh;
   box-sizing: border-box;
   max-width: 920px;
   margin: 0px auto;

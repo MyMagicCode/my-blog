@@ -31,10 +31,12 @@ export default function (div: Ref<HTMLElement>) {
     window.removeEventListener("mousemove", updateEl);
   }
   function mouseOut() {
+    //解决频繁移出bug
+    if (t1 != -1) return;
     //由于浏览器刷新有延迟需防抖移出
     t1 = setTimeout(() => {
       window.removeEventListener("mousemove", updateEl);
-    }, 300);
+    }, 800);
   }
   return {
     //需要给触发组件添加事件

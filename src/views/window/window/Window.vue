@@ -7,18 +7,13 @@
       @mouseup="mouseUp"
       @dblclick.stop="rewin"
     >
-      <span>
+      <span class="title">
         <b>
           <slot name="title">未命名</slot>
         </b>
       </span>
       <!-- 阻止冒泡事件 -->
-      <span
-        class="connt"
-        @mousedown.stop=""
-        @mousemove.stop=""
-        @mouseup.stop=""
-      >
+      <span class="connt" @mousedown.stop="" @mouseup.stop="">
         <img
           src="~assets/image/icon/minimize.png"
           width="22"
@@ -102,13 +97,13 @@ img {
   cursor: pointer;
 }
 span:nth-child(1) {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   display: block;
   max-width: 200px;
   padding-left: 10px;
   width: 20%;
-}
-span:nth-child(1) {
-  display: block;
   padding-right: 50px;
 }
 .top {
@@ -132,9 +127,10 @@ span:nth-child(1) {
   left: 20vw;
   margin: 0px;
   padding: 0px;
-  width: 60vw;
-  min-width: 770px;
-  height: calc(100vh - 105px);
+  width: auto;
+  min-width: fit-content;
+  /* height: calc(100vh - 105px); */
+  height: auto;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(15px);
   overflow: hidden;

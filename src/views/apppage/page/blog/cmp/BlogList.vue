@@ -82,7 +82,7 @@ export default defineComponent({
   opacity: 1;
 }
 .detailed {
-  color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.76);
   cursor: pointer;
   position: absolute;
   overflow: hidden;
@@ -92,8 +92,8 @@ export default defineComponent({
   border-radius: 10px;
   transition: all 0.5s;
   backdrop-filter: blur(5px);
-  background: rgba(0, 0, 0, 0.4);
-  width: 100%;
+  background: rgba(186, 186, 186, 0.4);
+  width: 101%;
   height: 100%;
 }
 .itemType {
