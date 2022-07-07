@@ -63,7 +63,7 @@ const NowTimer = computed(() => {
   );
   return num < 0 ? 0 : num;
 });
-
+// 游戏难度选择
 const selectMode = (mode: number) => {
   switch (mode) {
     case 1:
@@ -118,10 +118,10 @@ watch(gameState, (t) => {
   width: 80px;
   text-align: center;
   line-height: 30px;
-  background-color: #30bffdb9;
-  color: whitesmoke;
+  background-color: #ccebf9c7;
+  color: #008ecb;
   border: 0px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 .topbar {
   width: fit-content;

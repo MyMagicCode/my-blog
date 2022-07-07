@@ -35,7 +35,7 @@ class MyApp {
 }
 
 const apps: MyApp[] = [
-  new MyApp("我的博客", "test1", "blog/Blog.vue"),
+  new MyApp("简单笔记", "myNote", "note/Notes.vue"),
   new MyApp(
     "主题设置",
     "theme",
