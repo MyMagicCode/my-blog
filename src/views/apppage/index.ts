@@ -61,5 +61,5 @@ const apps: MyApp[] = [
     require("assets/image/icon/icon3.png")
   ),
 ];
-const defaultAppIndex = 2; //默认显示的app的下标
+const defaultAppIndex = 0; //默认显示的app的下标
 export { apps, MyApp, defaultAppIndex, IAppMenu };

@@ -6,6 +6,8 @@
       @mouseout="mouseOut"
       @mouseup="mouseUp"
       @dblclick.stop="rewin"
+      @touchstart="mouseDown"
+      @touchend="mouseUp"
     >
       <span class="title">
         <b>
@@ -81,7 +83,7 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      recenter();
+      setTimeout(() => recenter(), 10);
     });
 
     //窗口移动hook
@@ -149,7 +151,7 @@ img {
   display: block;
   max-width: 200px;
   padding-left: 10px;
-  width: 20%;
+  width: auto;
   padding-right: 50px;
 }
 .top {
@@ -168,9 +170,6 @@ img {
   box-sizing: border-box;
   position: fixed;
   box-shadow: 0px 0px 1px 1px #cdcdcd;
-  margin: 0px auto;
-  left: auto;
-  right: auto;
   padding: 0px;
   width: auto;
   height: auto;

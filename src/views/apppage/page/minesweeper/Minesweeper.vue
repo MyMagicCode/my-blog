@@ -118,7 +118,7 @@ watch(gameState, (t) => {
   width: 80px;
   text-align: center;
   line-height: 30px;
-  background-color: #ccebf9c7;
+  background-color: rgba(175, 217, 239, 0.556);
   color: #008ecb;
   border: 0px;
   border-radius: 20px;
@@ -132,7 +132,7 @@ watch(gameState, (t) => {
   height: 40px;
 }
 .backgound {
-  background-color: #30bffdb9;
+  background-color: rgb(69, 187, 250);
 }
 .backgound:hover {
   background-color: rgb(195, 223, 238);
