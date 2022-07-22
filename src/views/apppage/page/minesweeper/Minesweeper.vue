@@ -118,11 +118,17 @@ watch(gameState, (t) => {
   width: 80px;
   text-align: center;
   line-height: 30px;
-  background-color: rgba(175, 217, 239, 0.556);
-  color: #008ecb;
-  border: 0px;
+  background-color: rgb(236, 245, 255);
+  color: rgb(64, 158, 255);
+  border: rgb(64, 158, 255) 1px solid;
   border-radius: 20px;
 }
+
+.topbar span:hover {
+  background-color: rgb(64, 158, 255);
+  color: #fff;
+}
+
 .topbar {
   width: fit-content;
   margin: 0px auto;
