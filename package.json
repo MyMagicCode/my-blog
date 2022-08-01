@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^8.5.0",
+    "canvas-confetti": "^1.5.1",
     "core-js": "^3.6.5",
     "highlight.js": "^11.5.1",
     "markdown-it": "^13.0.1",

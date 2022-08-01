@@ -57,7 +57,8 @@ export default defineComponent({
   visibility: inherit;
 }
 .MenuItem:hover {
-  box-shadow: 0px 0px 30px 5px white;
+  filter: drop-shadow(0px 0px 10px white);
+  /* box-shadow: 0px 0px 30px 5px white; */
   /* margin-left: 5px;
   margin-right: 15px;
   width: 60px;

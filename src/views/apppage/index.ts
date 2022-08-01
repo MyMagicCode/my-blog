@@ -49,9 +49,9 @@ const apps: MyApp[] = [
     require("assets/image/icon/icon1.png")
   ),
   new MyApp(
-    "应用实例4",
+    "个人博客",
     "test4",
-    "Test2.vue",
+    "blog/Blog.vue",
     require("assets/image/icon/icon2.png")
   ),
   new MyApp(

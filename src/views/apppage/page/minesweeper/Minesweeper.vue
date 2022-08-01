@@ -1,5 +1,4 @@
 <template>
-  <!-- <button @click="reGame">reGame:{{ gameState }}</button> -->
   <div class="topbar">
     <span @click="selectMode(1)">简单</span>
     <span @click="selectMode(2)">一般</span>
@@ -33,19 +32,20 @@
       </div>
     </div>
   </div>
+  <canvas class="cvs" ref="cvs" width="500" height="600"></canvas>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch, onMounted } from "vue";
-import { useNow, useStorage } from "@vueuse/core";
+import { computed, ref, watch } from "vue";
+import { useNow } from "@vueuse/core";
 import { Minesweeper } from "./useMine";
 import IconParkOutlineTimer from "./IconParkOutlineTimer.vue";
 import MdiMine from "./MdiMine.vue";
 import Flag from "./Flag.vue";
-const game = ref<Minesweeper>(new Minesweeper(20, 15, 50));
-onMounted(() => {
-  console.log("onMounted");
-});
+
+const game = ref<Minesweeper>(new Minesweeper(20, 16, 50));
+const cvs = ref<HTMLCanvasElement>();
+
 const mineRest = computed(() => {
   let count = 0;
   game.value.getGameChecks.forEach((items) => {
@@ -57,6 +57,7 @@ const mineRest = computed(() => {
 });
 const { now, pause, resume } = useNow({ controls: true });
 pause();
+
 const NowTimer = computed(() => {
   const num = Math.round(
     (now.value.getTime() - game.value.getGameDate.getTime()) / 1000
@@ -65,6 +66,7 @@ const NowTimer = computed(() => {
 });
 // 游戏难度选择
 const selectMode = (mode: number) => {
+  if (cvs.value) cvs.value.style.display = "none";
   switch (mode) {
     case 1:
       game.value = new Minesweeper(10, 10, 15);
@@ -90,6 +92,7 @@ const rightCheck = (x: number, y: number) => {
 const gameState = computed(() => {
   return game.value.getGameState;
 });
+
 const fontColor = (x: number) => {
   const colors = [
     "rgb(0, 87, 180)",
@@ -106,12 +109,34 @@ const fontColor = (x: number) => {
 watch(gameState, (t) => {
   if (t == "paly") resume();
   else pause();
-  if (t == "lose") alert("失败了！");
-  else if (t == "won") alert("获得胜利");
+  if (t == "lose") alert("游戏失败！");
+  else if (t == "won") winGame();
 });
+
+function winGame() {
+  if (cvs.value) cvs.value.style.display = "block";
+  const confetti = require("canvas-confetti");
+  const myConfetti = confetti.create(cvs.value, {
+    particleCount: 300,
+    spread: 80,
+    origin: { y: 0 },
+  });
+  myConfetti();
+  setTimeout(() => {
+    myConfetti.reset();
+    if (cvs.value) cvs.value.style.display = "none";
+  }, 3000);
+}
 </script>
 
 <style scoped>
+.cvs {
+  display: none;
+  position: fixed;
+  top: 100px;
+  left: calc(50% - 250px);
+  z-index: 99;
+}
 .topbar span {
   cursor: pointer;
   margin: 0px 5px;

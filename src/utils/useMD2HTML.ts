@@ -3,6 +3,7 @@
   "highlight.js": "^11.5.1"
   "markdown-it": "^13.0.1"
 */
+// 设置代码块主题
 import "highlight.js/styles/rainbow.css";
 
 let hljs = require("highlight.js"); // https://highlightjs.org/

@@ -4,17 +4,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { Main } from "./views";
-
-export default defineComponent({
-  name: "App",
-  components: { Main },
-  setup() {
-    return {};
-  },
-});
 </script>
 
 <style>

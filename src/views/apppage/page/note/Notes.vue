@@ -1,32 +1,23 @@
 <template>
   <div class="Notes">
     <a id="top"></a>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
-    <div v-html="result"></div>
+    <template v-for="i in results">
+      <div v-html="i"></div>
+    </template>
     <a class="menu" href="#top">TOP</a>
   </div>
 </template>
 
 <script lang="ts" setup>
 import md from "utils/useMD2HTML";
+import { ref } from "vue";
+import("./notesdata").then((res) => {
+  res["default"].forEach((val) => {
+    results.value.push(md.render(val));
+  });
+});
 
-var result = md.render(`
-## JavaScript创建数组
-**2022/7/10**\n
-创建出一个数组再进行初始化，可以嵌套使用
-  \`\`\`javascript 
-Array.from({ length: 10 }, (_, i) => i)
-// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  \`\`\`
-`);
+const results = ref<Array<string>>([]);
 </script>
 
 <style scoped>
@@ -53,6 +44,8 @@ Array.from({ length: 10 }, (_, i) => i)
   overflow-x: hidden;
   padding-left: 15px;
   padding-right: 10px;
+  /* 缓慢滚动 */
+  scroll-behavior: smooth;
 }
 .Notes::-webkit-scrollbar {
   left: 0px;
