@@ -55,11 +55,11 @@ const apps: MyApp[] = [
     require("assets/image/icon/icon2.png")
   ),
   new MyApp(
-    "应用实例5",
-    "test5",
-    "Test2.vue",
+    "五子棋",
+    "gobang",
+    "gobang/Gobang.vue",
     require("assets/image/icon/icon3.png")
   ),
 ];
-const defaultAppIndex = 0; //默认显示的app的下标
+const defaultAppIndex = 4; //默认显示的app的下标
 export { apps, MyApp, defaultAppIndex, IAppMenu };

@@ -68,7 +68,7 @@ export default defineComponent({
       let width = div.offsetWidth;
       let max = document.documentElement.clientWidth;
       div.style.left = (max - width) / 2 + "px";
-      div.style.top = "0px";
+      div.style.top = "10px";
       // if (div.style.width == "60vw" || div.style.width == "") {
       //   div.style.width = "100vw";
       //   div.style.height = "100vh";
