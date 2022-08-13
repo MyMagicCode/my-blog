@@ -147,7 +147,8 @@ export default defineComponent({
 }
 .Menu {
   color: var(--menu-font-color);
-  position: absolute;
+  /* position: absolute; */
+  position: fixed;
   width: 100%;
   height: 75px;
   bottom: 30px;

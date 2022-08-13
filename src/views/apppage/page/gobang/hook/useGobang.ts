@@ -105,7 +105,6 @@ export function useGobang(cvs: Ref<HTMLCanvasElement>) {
         score[y][x] += 10000 + mrgin;
         break;
     }
-    console.log(player, score);
   }
 
   // 游戏入口

@@ -25,24 +25,6 @@
         <div class="cnt" style="background: #ee3f4d" @click.stop="close">
           <span>关闭</span>
         </div>
-        <!-- <img
-          src="~assets/image/icon/minimize.png"
-          width="22"
-          height="22"
-          @click.stop="isShow"
-        />
-        <img
-          src="~assets/image/icon/rewin.png"
-          width="22"
-          height="22"
-          @click.stop="rewin"
-        />
-        <img
-          src="~assets/image/icon/close.png"
-          width="22"
-          height="22"
-          @click.stop="close"
-        /> -->
       </span>
     </div>
     <div class="content">
