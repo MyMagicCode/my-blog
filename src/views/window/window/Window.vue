@@ -65,7 +65,7 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      setTimeout(() => recenter(), 10);
+      setTimeout(() => recenter(), 50);
     });
 
     //窗口移动hook

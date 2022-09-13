@@ -46,6 +46,7 @@ const playing = (e: MouseEvent) => {
 
 const gameStart = () => {
   gameStatus.value = "play";
+  gameText.value = "";
   game = useGobang(cvs);
 };
 </script>

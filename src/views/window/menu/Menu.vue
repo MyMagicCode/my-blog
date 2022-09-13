@@ -151,6 +151,7 @@ export default defineComponent({
   position: fixed;
   width: 100%;
   height: 75px;
+  z-index: 90;
   bottom: 30px;
 }
 .MenuContext {

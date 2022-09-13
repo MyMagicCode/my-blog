@@ -1,25 +1,28 @@
 import { Ref } from "vue";
 export default function (div: Ref<HTMLElement>) {
-  const win = div; //需要移动的组件
+  const refEl = div; //需要移动的组件
   let top = 0;
   let left = 0;
   let t1 = -1;
   function updateEl(e: any) {
-    //判断是否有延迟函数
     if (t1 != -1) {
+      //判断是否有延迟函数
       clearTimeout(t1);
       t1 = -1;
     }
-    let clientY = e.clientY ?? e.changedTouches[0].clientY;
-    let clientX = e.clientX ?? e.changedTouches[0].clientX;
+    let clientY = e.clientY ?? e.touches[0].clientY;
+    let clientX = e.clientX ?? e.touches[0].clientX;
 
-    let div = win.value as HTMLDivElement;
+    let div = refEl.value as HTMLDivElement;
     div.style.top = clientY - top + "px";
     div.style.left = clientX - left + "px";
   }
   function mouseDown(e: any): void {
-    top = e.offsetY ?? e.changedTouches[0].clientY;
-    left = e.offsetX ?? e.changedTouches[0].clientX;
+    // 移动端无法获取与父元素的位置信息，所以需要减去父元素与页面的位置：parseInt(win.value.style.top)
+    top =
+      e.offsetY ?? e.touches[0].pageY - parseInt(refEl.value.style.top || "0");
+    left =
+      e.offsetX ?? e.touches[0].pageX - parseInt(refEl.value.style.left || "0");
     //取消拖动时会选中文字，不取消会出现事件无法取消bug
     document.body.onselectstart = document.body.ondrag = function () {
       return false;
@@ -28,7 +31,7 @@ export default function (div: Ref<HTMLElement>) {
     // 适配触摸屏
     window.addEventListener("touchmove", updateEl);
   }
-  function mouseUp(e: any): void {
+  function mouseUp(): void {
     //取消拖动时不会选中文字
     document.body.onselectstart = document.body.ondrag = function () {
       return true;
@@ -37,8 +40,7 @@ export default function (div: Ref<HTMLElement>) {
     //适配触摸
     window.removeEventListener("touchmove", updateEl);
   }
-  // window.addEventListener("touchstart", () => console.log("触摸"));
-  // window.addEventListener("touchstart", () => console.log("触摸"));
+
   function mouseOut() {
     //解决频繁移出bug
     if (t1 != -1) return;
