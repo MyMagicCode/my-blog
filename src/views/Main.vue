@@ -1,32 +1,34 @@
 <template>
-  <template v-for="item in showApp" :key="item.name">
-    <Window
+  <template v-for="(item, index) in showApp" :key="item.name">
+    <myWindow
       @mousedown="changeWin"
       :isHidden="item.isHidden"
       :close="removeApp(item.name)"
       :is-show="changeHidden(item.name)"
+      ref="container"
     >
       <template #title>{{ item.tittle }} </template>
       <template #content>
-        <component :is="item.compute()"></component>
+        <component :is="item.compute(loadCallback(index))"></component>
       </template>
-    </Window>
+    </myWindow>
   </template>
   <MenuVue />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, toRefs } from "vue";
-import Window from "views/window/window/Window.vue";
+import myWindow from "views/window/window/Window.vue";
 import MenuVue from "views/window/menu/Menu.vue";
 import useChangeIndex from "views/window/window/hook/useChangeIndex";
 import { useMainStore } from "../pinia";
 
 export default defineComponent({
   name: "Main",
-  components: { Window, MenuVue },
+  components: { myWindow, MenuVue },
   setup() {
     const zindex = ref("1");
+    const container = ref<InstanceType<typeof myWindow> | null>(null);
     const mainStore = useMainStore();
     const { showApp } = toRefs(mainStore.$state);
     const nowWindow = ref();
@@ -42,6 +44,17 @@ export default defineComponent({
         mainStore.removeApp(name);
       };
     };
+
+    // 异步回调函数
+    const loadCallback = (index: number) => {
+      console.log("异步组件加载完毕！");
+      return function () {
+        setTimeout(() => {
+          (container.value as any)[index].recenter();
+          console.log(showApp.value[index]);
+        });
+      };
+    };
     //切换z-index
     const changeWin = useChangeIndex(nowWindow);
     return {
@@ -50,6 +63,8 @@ export default defineComponent({
       zindex,
       removeApp,
       changeHidden,
+      loadCallback,
+      container,
     };
   },
 });

@@ -5,7 +5,7 @@
       @mousedown="mouseDown"
       @mouseout="mouseOut"
       @mouseup="mouseUp"
-      @dblclick.stop="rewin"
+      @dblclick.stop="recenter"
       @touchstart="mouseDown"
       @touchend="mouseUp"
     >
@@ -19,7 +19,7 @@
         <div class="cnt" style="background: #20a162" @click.stop="isShow">
           <span>最小化</span>
         </div>
-        <div class="cnt" style="background: #1e9eb3" @click.stop="rewin">
+        <div class="cnt" style="background: #1e9eb3" @click.stop="recenter">
           <span>居中</span>
         </div>
         <div class="cnt" style="background: #ee3f4d" @click.stop="close">
@@ -33,52 +33,39 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+<script setup lang="ts">
+import { defineProps, ref, defineExpose } from "vue";
 import useMove from "./hook/useMove";
-export default defineComponent({
-  name: "Window",
-  props: {
-    close: null,
-    isHidden: Boolean,
-    isShow: null,
-  },
-  setup() {
-    const win = ref();
-    const recenter = () => {
-      const div = win.value as HTMLDivElement;
-      let width = div.offsetWidth;
-      let max = document.documentElement.clientWidth;
-      div.style.left = (max - width) / 2 + "px";
-      div.style.top = "10px";
-      // if (div.style.width == "60vw" || div.style.width == "") {
-      //   div.style.width = "100vw";
-      //   div.style.height = "100vh";
-      //   div.style.left = "0px";
-      //   div.style.top = "0px";
-      // } else {
-      //   div.style.width = "60vw";
-      //   div.style.height = "calc(100vh - 105px)";
-      //   div.style.top = "0px";
-      //   div.style.left = "20vw";
-      // }
-    };
 
-    onMounted(() => {
-      setTimeout(() => recenter(), 50);
-    });
-
-    //窗口移动hook
-    const { mouseDown, mouseUp, mouseOut } = useMove(win);
-    return {
-      mouseDown,
-      mouseUp,
-      mouseOut,
-      rewin: recenter,
-      win,
-    };
-  },
+defineProps({
+  close: null,
+  isHidden: Boolean,
+  isShow: null,
 });
+const win = ref();
+const recenter = () => {
+  const div = win.value as HTMLDivElement;
+  let width = div.offsetWidth;
+  let max = document.documentElement.clientWidth;
+  div.style.left = (max - width) / 2 + "px";
+  div.style.top = "10px";
+  // if (div.style.width == "60vw" || div.style.width == "") {
+  //   div.style.width = "100vw";
+  //   div.style.height = "100vh";
+  //   div.style.left = "0px";
+  //   div.style.top = "0px";
+  // } else {
+  //   div.style.width = "60vw";
+  //   div.style.height = "calc(100vh - 105px)";
+  //   div.style.top = "0px";
+  //   div.style.left = "20vw";
+  // }
+};
+defineExpose({
+  recenter,
+});
+//窗口移动hook
+const { mouseDown, mouseUp, mouseOut } = useMove(win);
 </script>
 
 <style scoped>

@@ -29,8 +29,19 @@ class MyApp {
     this.fileName = fileName;
     this.iconUrl = iconUrl;
   }
-  compute() {
-    return defineAsyncComponent(() => import("./page/" + this.fileName));
+  compute(loadCallback: () => void) {
+    return defineAsyncComponent(async () => {
+      // 延迟测试
+      // await new Promise((resolve) => {
+      //   setTimeout(resolve, 2000);
+      // });
+      return import("./page/" + this.fileName).then((res) => {
+        // 加载完成执行回调
+        loadCallback();
+        setTimeout(() => {});
+        return res;
+      });
+    });
   }
 }
 
