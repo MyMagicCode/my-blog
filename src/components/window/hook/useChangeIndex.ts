@@ -1,17 +1,13 @@
-import { Ref } from "vue";
-
-export default function (nowWindow: Ref<HTMLDivElement>) {
-  const changeWin = (e: any) => {
-    // 将前一个的z-index设置为：1
-    if (nowWindow.value) nowWindow.value.style.zIndex = "1";
-    for (let i in e.composedPath()) {
-      let el = e.composedPath()[i] as HTMLElement;
-      if (el.className == "Window") {
-        nowWindow.value = el as HTMLDivElement;
-        nowWindow.value.style.zIndex = "10";
-        break;
-      }
+let nowEl: HTMLElement;
+export default function (e: any) {
+  // 将前一个的z-index设置为：1
+  if (nowEl) nowEl.style.zIndex = "1";
+  for (let i in e.composedPath()) {
+    let el = e.composedPath()[i] as HTMLElement;
+    if (el.className == "Window") {
+      nowEl = el as HTMLDivElement;
+      nowEl.style.zIndex = "10";
+      break;
     }
-  };
-  return changeWin;
+  }
 }

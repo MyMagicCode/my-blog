@@ -1,7 +1,7 @@
 import { defineAsyncComponent } from "vue";
 
 interface IAppMenu {
-  tittle: string;
+  title: string;
   isHidren: boolean;
   name: string;
   iconUrl?: string;
@@ -9,21 +9,21 @@ interface IAppMenu {
 }
 
 class MyApp {
-  tittle: string;
+  title: string;
   isHidden: boolean;
   name: string;
   iconUrl?: string;
   backgroundColor?: string;
   fileName: string;
   constructor(
-    tittle: string,
+    title: string,
     name: string,
     fileName: string,
     iconUrl?: string,
     backgroundColor?: string
   ) {
     this.name = name;
-    this.tittle = tittle;
+    this.title = title;
     this.backgroundColor = backgroundColor;
     this.isHidden = true;
     this.fileName = fileName;
@@ -72,5 +72,16 @@ const apps: MyApp[] = [
     require("assets/image/icon/icon3.png")
   ),
 ];
+
+function getApp(name: String): MyApp {
+  let el: MyApp = new MyApp("未找到", "404", "./404.vue");
+  for (const item of apps) {
+    if (item.name == name) {
+      el = item;
+    }
+  }
+  return el;
+}
+
 const defaultAppIndex = 4; //默认显示的app的下标
-export { apps, MyApp, defaultAppIndex, IAppMenu };
+export { apps, MyApp, defaultAppIndex, IAppMenu, getApp };

@@ -1,5 +1,11 @@
 <template>
-  <div class="Window" ref="win" style="z-index: 1" v-show="isHidden">
+  <div
+    @mousedown="changeZIndex"
+    class="Window"
+    ref="win"
+    style="z-index: 1"
+    v-show="isHidden"
+  >
     <div
       class="top"
       @mousedown="mouseDown"
@@ -38,6 +44,8 @@
 <script setup lang="ts">
 import { ref, defineExpose } from "vue";
 import useMove from "./hook/useMove";
+// 切换优先显示的窗口
+import changeZIndex from "./hook/useChangeIndex";
 
 defineProps({
   close: null,

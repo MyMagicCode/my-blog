@@ -3,7 +3,7 @@
     <div class="MenuContext">
       <template v-for="item in menulist" :key="item.name">
         <MenuItemVue
-          :title="item.tittle"
+          :title="item.title"
           :icon-url="item?.iconUrl"
           :background-color="item?.backgroundColor"
           @click="openApp(item.name)"
@@ -29,7 +29,7 @@
               :background-color="item.backgroundColor"
               :icon-url="item.iconUrl"
               @click="openApp(item.name)"
-              :title="item.tittle"
+              :title="item.title"
             />
             <template v-if="menuIdexs.indexOf(i) != -1">
               <span class="itemBtn del" @click.stop="remove(i)">删除</span>
@@ -50,7 +50,7 @@ import MenuItemVue from "./MenuItem.vue";
 import { useMainStore } from "store/index";
 //menu的格式
 interface IMenuItem {
-  tittle: string;
+  title: string;
   name: string;
   iconUrl?: string;
   backgroundColor?: string;
