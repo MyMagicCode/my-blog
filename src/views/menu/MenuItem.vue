@@ -12,7 +12,7 @@ export default defineComponent({
   props: {
     iconUrl: {
       type: String,
-      default: require("../../../assets/image/defaultIcon.png"),
+      default: require("../../assets/image/defaultIcon.png"),
     },
     backgroundColor: {
       type: String,

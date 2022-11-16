@@ -29,6 +29,9 @@
       ],
       "components/*":[
         "src/components/*"
+      ],
+      "store/*":[
+        "src/store/*"
       ]
     },
     "lib": [

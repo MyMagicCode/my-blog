@@ -23,7 +23,7 @@
 import { defineComponent, ref } from "vue";
 import rootStyle from "utils/useProperty";
 import ColorPicker from "components/colorpicker/ColorPicker.vue";
-import MenuItem from "@/views/window/menu/MenuItem.vue";
+import MenuItem from "@/views/menu/MenuItem.vue";
 import TsItem from "./TsItem.vue";
 export default defineComponent({
   name: "MenuSetting",

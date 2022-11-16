@@ -1,27 +1,30 @@
 <template>
-  <template v-for="(item, index) in showApp" :key="item.name">
-    <myWindow
-      @mousedown="changeWin"
-      :isHidden="item.isHidden"
-      :close="removeApp(item.name)"
-      :is-show="changeHidden(item.name)"
-      ref="container"
-    >
-      <template #title>{{ item.tittle }} </template>
-      <template #content>
-        <component :is="item.compute(loadCallback(index))"></component>
-      </template>
-    </myWindow>
-  </template>
+  <KeepAlive>
+    <template v-for="(item, index) in showApp" :key="item.name">
+      <myWindow
+        @mousedown="changeWin"
+        :isHidden="item.isHidden"
+        :close="removeApp(item.name)"
+        :is-show="changeHidden(item.name)"
+        ref="container"
+      >
+        <template #title>{{ item.tittle }} </template>
+        <template #content>
+          <component :is="item.compute(loadCallback(index))"></component>
+        </template>
+      </myWindow>
+    </template>
+  </KeepAlive>
   <MenuVue />
+  <component :is="null"></component>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from "vue";
-import myWindow from "views/window/window/Window.vue";
-import MenuVue from "views/window/menu/Menu.vue";
-import useChangeIndex from "views/window/window/hook/useChangeIndex";
-import { useMainStore } from "../pinia";
+import { defineComponent, onUpdated, ref, toRefs } from "vue";
+import myWindow from "components/window/Window.vue";
+import MenuVue from "views/menu/Menu.vue";
+import useChangeIndex from "components/window/hook/useChangeIndex";
+import { useMainStore } from "store/index";
 
 export default defineComponent({
   name: "Main",
@@ -44,14 +47,14 @@ export default defineComponent({
         mainStore.removeApp(name);
       };
     };
-
+    onUpdated(() => {
+      console.log("更新页面回调！");
+    });
     // 异步回调函数
     const loadCallback = (index: number) => {
-      console.log("异步组件加载完毕！");
       return function () {
         setTimeout(() => {
-          (container.value as any)[index].recenter();
-          console.log(showApp.value[index]);
+          (container.value as any)?.[index].recenter();
         });
       };
     };

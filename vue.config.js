@@ -20,6 +20,7 @@ module.exports = {
         assets: "@/assets",
         utils: "@/utils",
         components: "@/components",
+        store: "@/store",
       },
     },
   },

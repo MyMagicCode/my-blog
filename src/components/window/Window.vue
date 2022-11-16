@@ -28,13 +28,15 @@
       </span>
     </div>
     <div class="content">
-      <slot name="content"></slot>
+      <keep-alive>
+        <slot name="content"></slot>
+      </keep-alive>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineExpose } from "vue";
+import { ref, defineExpose } from "vue";
 import useMove from "./hook/useMove";
 
 defineProps({

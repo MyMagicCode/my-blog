@@ -13,7 +13,7 @@
         @click="isShow = true"
         :title="'更多'"
         :background-color="'rgba(0,0,0,0)'"
-        :iconUrl="require('../../../assets/image/more2.png')"
+        :iconUrl="require('../../assets/image/more2.png')"
       />
     </div>
     <div
@@ -47,7 +47,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, onMounted, toRefs } from "vue";
 import MenuItemVue from "./MenuItem.vue";
-import { useMainStore } from "../../../pinia";
+import { useMainStore } from "store/index";
 //menu的格式
 interface IMenuItem {
   tittle: string;

@@ -38,7 +38,7 @@ class MyApp {
       return import("./page/" + this.fileName).then((res) => {
         // 加载完成执行回调
         loadCallback();
-        setTimeout(() => {});
+        // setTimeout(() => {});
         return res;
       });
     });
