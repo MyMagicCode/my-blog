@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose, onMounted } from "vue";
+import { ref, defineExpose } from "vue";
 import useMove from "./hook/useMove";
 // 切换优先显示的窗口
 import changeZIndex from "./hook/useChangeIndex";
