@@ -68,7 +68,6 @@ export default defineComponent({
     const allMenulist = toRefs(mainStore.$state)["allApps"];
     const openApp = (name: string) => {
       mainStore.pushShowApp(name);
-      mainStore.changeHidden(name, true);
     };
     onMounted(() => {
       menuIdexs.value.push(...[0, 1, 2, 3, 4]);

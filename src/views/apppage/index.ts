@@ -60,9 +60,9 @@ const apps: MyApp[] = [
     require("assets/image/icon/icon1.png")
   ),
   new MyApp(
-    "个人博客",
-    "test4",
-    "blog/Blog.vue",
+    "工具库",
+    "gadget",
+    "gadget/Gadget.vue",
     require("assets/image/icon/icon2.png")
   ),
   new MyApp(
@@ -83,5 +83,5 @@ function getApp(name: String): MyApp {
   return el;
 }
 
-const defaultAppIndex = 4; //默认显示的app的下标
+const defaultAppIndex = 3; //默认显示的app的下标
 export { apps, MyApp, defaultAppIndex, IAppMenu, getApp };

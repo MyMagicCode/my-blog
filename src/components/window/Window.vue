@@ -1,11 +1,5 @@
 <template>
-  <div
-    @mousedown="changeZIndex"
-    class="Window"
-    ref="win"
-    style="z-index: 1"
-    v-show="isHidden"
-  >
+  <div @mousedown="changeZIndex" class="Window" ref="win" style="z-index: 1">
     <div
       class="top"
       @mousedown="mouseDown"
@@ -22,7 +16,7 @@
       </span>
       <!-- 阻止冒泡事件 -->
       <span class="connt" @mousedown.stop="" @mouseup.stop="">
-        <div class="cnt" style="background: #20a162" @click.stop="isShow">
+        <div class="cnt" style="background: #20a162" @click.stop="minimize">
           <span>最小化</span>
         </div>
         <div class="cnt" style="background: #1e9eb3" @click.stop="recenter">
@@ -34,46 +28,43 @@
       </span>
     </div>
     <div class="content">
-      <keep-alive>
-        <slot name="content"></slot>
-      </keep-alive>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose } from "vue";
+import { ref, defineExpose, onMounted } from "vue";
 import useMove from "./hook/useMove";
 // 切换优先显示的窗口
 import changeZIndex from "./hook/useChangeIndex";
 
 defineProps({
   close: null,
-  isHidden: Boolean,
-  isShow: null,
 });
 const win = ref();
+
+// 最小化窗口
+const minimize = () => {
+  const div = win.value as HTMLDivElement;
+  div.style.top = window.innerHeight + 10 + "px";
+};
+
+// 居中
 const recenter = () => {
   const div = win.value as HTMLDivElement;
   let width = div.offsetWidth;
   let max = document.documentElement.clientWidth;
   div.style.left = (max - width) / 2 + "px";
   div.style.top = "10px";
-  // if (div.style.width == "60vw" || div.style.width == "") {
-  //   div.style.width = "100vw";
-  //   div.style.height = "100vh";
-  //   div.style.left = "0px";
-  //   div.style.top = "0px";
-  // } else {
-  //   div.style.width = "60vw";
-  //   div.style.height = "calc(100vh - 105px)";
-  //   div.style.top = "0px";
-  //   div.style.left = "20vw";
-  // }
 };
+
+// 暴露接口
 defineExpose({
   recenter,
+  minimize,
 });
+
 //窗口移动hook
 const { mouseDown, mouseUp, mouseOut } = useMove(win);
 </script>

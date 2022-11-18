@@ -6,21 +6,34 @@
       :is-hidden="showApp[i - 1]?.isHidden"
     />
   </template>
+
+  <div class="a" ref="test"></div>
+
   <MenuVue />
 </template>
 
 <script lang="ts" setup>
-import { onUpdated, ref, toRefs } from "vue";
+import { onMounted, ref, toRefs } from "vue";
+import html2canvas from "html2canvas";
 import MenuVue from "views/menu/Menu.vue";
 import Test from "@/views/apppage/AppView.vue";
 import { useMainStore } from "store/index";
 
 const mainStore = useMainStore();
 const { showApp } = toRefs(mainStore.$state);
+const test = ref(null);
 
-onUpdated(() => {
-  console.log("更新页面回调！");
+onMounted(() => {
+  html2canvas(test.value! as HTMLElement).then((res: any) => {
+    console.log(res);
+  });
 });
 </script>
 
-<style scoped lang="less"></style>
+<style scoped>
+.a {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+</style>

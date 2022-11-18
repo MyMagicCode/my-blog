@@ -1,10 +1,5 @@
 <template>
-  <myWindow
-    :isHidden="isHidden"
-    :close="deleteApp(cname ?? '')"
-    :is-show="minimize"
-    ref="container"
-  >
+  <myWindow :close="deleteApp(cname ?? '')" ref="container">
     <template #title>{{ commentEl.title }} </template>
     <template #content>
       <component :is="commentEl.compute(loadCallback)"></component>
@@ -13,13 +8,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import myWindow from "components/window/Window.vue";
 import { getApp } from "./index";
 import { useMainStore } from "store/index";
 
 const props = defineProps({
-  cid: { type: Number, require: true },
   cname: String,
   isHidden: Boolean,
 });
@@ -36,10 +30,9 @@ const deleteApp = (name: string) => {
   };
 };
 
-// 最小化
-const minimize = () => {
-  mainStore.changeHidden(props.cname!, false);
-};
+onMounted(() => {
+  mainStore.addAppExample(props.cname!, container.value!);
+});
 
 // 初始化后居中
 const loadCallback = () => {

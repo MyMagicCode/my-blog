@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { apps, defaultAppIndex, MyApp, IAppMenu } from "../../views/apppage";
+import myWindow from "components/window/Window.vue";
 type Tshow = MyApp | null;
 const showApp: Tshow[] = [
   apps[defaultAppIndex],
@@ -16,6 +17,7 @@ const useMainStore = defineStore("main", {
     return {
       allApps: apps, //全部app
       showApp, //显示的app
+      mapAppExamples: new Map(),
     };
   },
   getters: {
@@ -36,6 +38,11 @@ const useMainStore = defineStore("main", {
   actions: {
     pushShowApp(name: string) {
       for (let item of this.allApps) {
+        // 如果已经添加就显示
+        if (this.showApp.indexOf(item) != -1) {
+          this.mapAppExamples.get(name)?.recenter();
+          break;
+        }
         if (item.name == name && this.showApp.indexOf(item) == -1) {
           for (const i in this.showApp) {
             if (this.showApp[i] == null) {
@@ -51,15 +58,12 @@ const useMainStore = defineStore("main", {
         if (!this.showApp[index]) continue;
         if (this.showApp[index]!.name == name) {
           this.showApp[index] = null;
+          this.mapAppExamples.delete(name);
         }
       }
     },
-    changeHidden(name: string, isHidden: boolean) {
-      for (let item of this.showApp) {
-        if (item != null && item!.name == name) {
-          item!.isHidden = isHidden;
-        }
-      }
+    addAppExample(name: String, app: InstanceType<typeof myWindow>) {
+      this.mapAppExamples.set(name, app);
     },
   },
 });
