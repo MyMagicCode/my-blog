@@ -1,5 +1,5 @@
 <template>
-  <div @mousedown="changeZIndex" class="Window" ref="win" style="z-index: 1">
+  <div @mousedown="changeZIndex" class="Window" ref="el" style="z-index: 1">
     <div
       class="top"
       @mousedown="mouseDown"
@@ -34,7 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose } from "vue";
+import { ref, defineExpose, nextTick } from "vue";
+import html2canvas from "html2canvas";
 import useMove from "./hook/useMove";
 // 切换优先显示的窗口
 import changeZIndex from "./hook/useChangeIndex";
@@ -42,31 +43,49 @@ import changeZIndex from "./hook/useChangeIndex";
 defineProps({
   close: null,
 });
-const win = ref();
+const el = ref();
+
+// 将当前页面转换为图片
+const getImage = (imgEL: HTMLImageElement) => {
+  html2canvas(el.value! as HTMLElement).then((canvas: any) => {
+    let dataUrl = canvas.toDataURL("image/png");
+    imgEL.src = dataUrl;
+    imgEL.style.display = "block";
+  });
+};
 
 // 最小化窗口
 const minimize = () => {
-  const div = win.value as HTMLDivElement;
+  const div = el.value as HTMLDivElement;
+  div.style.transition = "0.5s all";
   div.style.top = window.innerHeight + 10 + "px";
+  setTimeout(() => {
+    div.style.transition = "";
+  }, 500);
 };
 
 // 居中
 const recenter = () => {
-  const div = win.value as HTMLDivElement;
+  const div = el.value as HTMLDivElement;
   let width = div.offsetWidth;
   let max = document.documentElement.clientWidth;
+  div.style.transition = "0.5s all";
   div.style.left = (max - width) / 2 + "px";
   div.style.top = "10px";
+  setTimeout(() => {
+    div.style.transition = "";
+  }, 500);
 };
 
 // 暴露接口
 defineExpose({
   recenter,
   minimize,
+  getImage,
 });
 
 //窗口移动hook
-const { mouseDown, mouseUp, mouseOut } = useMove(win);
+const { mouseDown, mouseUp, mouseOut } = useMove(el);
 </script>
 
 <style scoped>

@@ -17,7 +17,8 @@ const useMainStore = defineStore("main", {
     return {
       allApps: apps, //全部app
       showApp, //显示的app
-      mapAppExamples: new Map(),
+      mapAppExamples: new Map(), // app实例
+      appName: "",
     };
   },
   getters: {
@@ -37,13 +38,13 @@ const useMainStore = defineStore("main", {
   },
   actions: {
     pushShowApp(name: string) {
+      // 如果已经添加就显示
+      if (this.mapAppExamples.get(name)) {
+        this.mapAppExamples.get(name).recenter();
+        return;
+      }
       for (let item of this.allApps) {
-        // 如果已经添加就显示
-        if (this.showApp.indexOf(item) != -1) {
-          this.mapAppExamples.get(name)?.recenter();
-          break;
-        }
-        if (item.name == name && this.showApp.indexOf(item) == -1) {
+        if (item.name == name) {
           for (const i in this.showApp) {
             if (this.showApp[i] == null) {
               this.showApp[i] = item;
@@ -64,6 +65,12 @@ const useMainStore = defineStore("main", {
     },
     addAppExample(name: String, app: InstanceType<typeof myWindow>) {
       this.mapAppExamples.set(name, app);
+    },
+    getMapAppImg(name: string, el: HTMLImageElement) {
+      if (!this.mapAppExamples.get(name)) {
+        return;
+      }
+      this.mapAppExamples.get(name)?.getImage(el);
     },
   },
 });

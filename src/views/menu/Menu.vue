@@ -7,6 +7,7 @@
           :icon-url="item?.iconUrl"
           :background-color="item?.backgroundColor"
           @click="openApp(item.name)"
+          :data-name="item.name"
         />
       </template>
       <MenuItemVue
@@ -115,7 +116,6 @@ export default defineComponent({
   line-height: 26px;
 }
 .menulistItem {
-  z-index: 101;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -150,7 +150,7 @@ export default defineComponent({
   position: fixed;
   width: 100%;
   height: 75px;
-  z-index: 1;
+  z-index: 10;
   bottom: 30px;
 }
 .MenuContext {
@@ -161,6 +161,7 @@ export default defineComponent({
   background-color: var(--menu-bg-rbga);
   box-sizing: border-box;
   border-radius: 20px;
+  border: 1px solid #b8b8b8b6;
   margin: 0 auto;
 }
 </style>
